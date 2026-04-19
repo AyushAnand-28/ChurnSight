@@ -119,10 +119,8 @@ def preprocess_uploaded(df: pd.DataFrame, scaler, feature_names: list, encoders:
             )
             if col in encoders:
                 le = encoders[col]
-                df[col] = df[col].astype(str).map(
-                    lambda x, le=le: le.transform([x])[0]
-                    if x in le.classes_ else 0
-                )
+                mapping = {val: i for i, val in enumerate(le.classes_)}
+                df[col] = df[col].astype(str).map(mapping).fillna(0).astype(int)
             else:
                 df[col] = (df[col].astype(str).str.lower() == "yes").astype(int)
 

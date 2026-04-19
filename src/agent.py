@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from typing import Dict, TypedDict, List
 from pydantic import BaseModel, Field
 
@@ -101,7 +102,7 @@ def generator_node(state: AgentState) -> AgentState:
     """Generates the structured retention strategy."""
     
     # Ensure Groq API key is set
-    llm = ChatGroq(model="llama3-70b-8192", temperature=0.2)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2)
     
     parser = PydanticOutputParser(pydantic_object=RetentionReport)
     
